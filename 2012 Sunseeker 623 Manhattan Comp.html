@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Valuation Strategy: 2012 Sunseeker 63 Manhattan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 500px;
+        }
+        @media (max-width: 768px) {
+            .chart-container { height: 300px; }
+        }
+        .card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .active-tab { border-bottom: 2px solid #0f172a; color: #0f172a; font-weight: 600; }
+        .inactive-tab { color: #64748b; }
+        .inactive-tab:hover { color: #334155; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col">
+
+    <!-- Chosen Palette: Slate & Navy (Professional, Nautical, Trustworthy) with Emerald Green for positive equity and Rose for penalties. -->
+    
+    <!-- Application Structure Plan: 
+         1. Header: Clear Title and Context (Asset Name, Strategy Year).
+         2. Executive Summary (KPIs): The "Bottom Line" numbers upfront for immediate orientation.
+         3. Valuation Bridge (The "Why"): A waterfall chart explaining the derivation of the value from the baseline, handling the complex adjustment matrix.
+         4. Mechanical & Market Context: Side-by-side analysis of Engine Hours (the key variable) and the Pricing Formulation logic.
+         5. Strategic Outcomes: A "Debt vs. Equity" calculator allowing users to switch between Liquidation and Retail scenarios to see the real-world cash impact.
+         6. Conclusion: Final recommendation.
+         
+         Rationale: This structure moves from "What" (The numbers) to "How" (The calculation) to "So What" (The cash outcome), mirroring the cognitive flow of a decision-maker.
+    -->
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-tight">Valuation & Strategy Report</h1>
+                    <p class="text-slate-400 mt-1">Asset: 2012 Sunseeker 63 Manhattan ("MINE") | 2026 Strategy</p>
+                </div>
+                <div class="mt-4 md:mt-0 text-right">
+                    <span class="inline-block px-3 py-1 bg-blue-600 text-xs font-semibold rounded-full uppercase tracking-wide">Recalibrated Analysis</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow space-y-12">
+
+        <!-- Section 1: Executive Summary -->
+        <section>
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 border-l-4 border-blue-600 pl-3">Executive Summary: The Financial Bottom Line</h2>
+                <p class="text-slate-600 mt-2 max-w-4xl">
+                    Following a mechanical recalibration and 2026 market analysis, we have updated the valuation model. The reduction in "stigma" from the Port engine hours significantly improves the vessel's market positioning. Below are the three critical financial targets for the 2026 strategy.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- KPI Card 1 -->
+                <div class="card bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="text-sm font-medium text-slate-500 uppercase">Actual Cash Value (ACV)</div>
+                    <div class="mt-2 text-3xl font-bold text-slate-900">$624,000</div>
+                    <div class="mt-1 text-sm text-rose-600 font-medium">Liquidation Floor</div>
+                    <p class="mt-4 text-xs text-slate-400 leading-relaxed">Immediate wholesale liquidation value. Even at this floor, the asset holds positive equity against debt.</p>
+                </div>
+
+                <!-- KPI Card 2 -->
+                <div class="card bg-white p-6 rounded-xl shadow-sm border border-slate-200 ring-2 ring-blue-50">
+                    <div class="text-sm font-medium text-blue-600 uppercase">Expected Retail Price</div>
+                    <div class="mt-2 text-3xl font-bold text-blue-900">$832,000</div>
+                    <div class="mt-1 text-sm text-emerald-600 font-medium">Market Clearing Target</div>
+                    <p class="mt-4 text-xs text-slate-400 leading-relaxed">Anticipated final sale price after standard negotiations. This is the primary target for net equity calculation.</p>
+                </div>
+
+                <!-- KPI Card 3 -->
+                <div class="card bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="text-sm font-medium text-slate-500 uppercase">Strategic List Price</div>
+                    <div class="mt-2 text-3xl font-bold text-slate-900">$995,000</div>
+                    <div class="mt-1 text-sm text-blue-600 font-medium">Psychological Entry</div>
+                    <p class="mt-4 text-xs text-slate-400 leading-relaxed">Recommended initial ask. Mathematically $1.03M, but adjusted to stay under the $1M search barrier.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Valuation Bridge (Waterfall) -->
+        <section>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <h2 class="text-xl font-bold text-slate-800 border-l-4 border-indigo-600 pl-3">Quantitative Adjustment Matrix</h2>
+                    <p class="text-sm text-slate-600 mt-4 leading-relaxed">
+                        This chart visualizes the "Bridge" from the theoretical baseline of a 2012 Sunseeker 63 to the specific value of the subject vessel.
+                    </p>
+                    <p class="text-sm text-slate-600 mt-4 leading-relaxed">
+                        We start with a <strong>$1.0M Baseline</strong> based on 9 comparables. We then apply a <strong>15% Temporal Correction</strong> for the 2026 buyer's market.
+                    </p>
+                    <p class="text-sm text-slate-600 mt-4 leading-relaxed">
+                        Mechanical adjustments include a penalty for the high-hour Port engine, but a significant <strong>Repower Credit (+$52k)</strong> for the Starboard engine, which aligns perfectly with the market average.
+                    </p>
+                    <div class="mt-8 bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                        <div class="text-xs font-semibold text-indigo-800 uppercase tracking-wide">Net Adjustment</div>
+                        <div class="text-2xl font-bold text-indigo-900">-$168,000</div>
+                        <div class="text-xs text-indigo-700 mt-1">Total impact on baseline</div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-semibold text-slate-700">Valuation Bridge Waterfall</h3>
+                        <div class="text-xs text-slate-400">Values in USD</div>
+                    </div>
+                    <!-- Visualization & Content Choices: Waterfall Chart (Bar chart with floating values) is the standard financial tool for showing adjustments.
+                         Interaction: Tooltips show the specific logic for each step.
+                         Confirming NO SVG graphics used. NO Mermaid JS used. -->
+                    <div class="chart-container">
+                        <canvas id="valuationBridgeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Engine Analysis & Strategy -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Engine Analysis -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="mb-4 border-b border-slate-100 pb-4">
+                    <h3 class="text-lg font-bold text-slate-800">Engine Hour Recalibration</h3>
+                    <p class="text-sm text-slate-500 mt-1">Comparing subject vessel against 2026 Market Baseline (1,100 Hours).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="engineChart"></canvas>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 p-3 rounded border-l-4 border-rose-500">
+                            <div class="text-xs font-bold text-slate-500 uppercase">Port Engine</div>
+                            <div class="flex justify-between items-end">
+                                <span class="text-lg font-bold text-slate-800">2,100 Hrs</span>
+                                <span class="text-xs font-bold text-rose-600">High Usage</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">Deviation: +1,000 hrs. <br>Penalty: -$30,000.</p>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded border-l-4 border-emerald-500">
+                            <div class="text-xs font-bold text-slate-500 uppercase">Starboard Engine</div>
+                            <div class="flex justify-between items-end">
+                                <span class="text-lg font-bold text-slate-800">1,100 Hrs</span>
+                                <span class="text-xs font-bold text-emerald-600">Market Parity</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">Deviation: 0 hrs. <br>Credit: Implied in Repower.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Formulation Logic -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col">
+                <div class="mb-4 border-b border-slate-100 pb-4">
+                    <h3 class="text-lg font-bold text-slate-800">Pricing Strategy Formulation</h3>
+                    <p class="text-sm text-slate-500 mt-1">Deriving the Listing Price from the Net Retail Target.</p>
+                </div>
+
+                <div class="flex-grow space-y-6">
+                    <!-- Step 1 -->
+                    <div class="flex items-start group cursor-pointer" onclick="highlightStep('step1')">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold mr-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">1</div>
+                        <div>
+                            <h4 class="font-semibold text-slate-800">Establish Retail Target</h4>
+                            <p class="text-sm text-slate-500">Calculated from the Valuation Bridge.</p>
+                            <div class="mt-1 text-lg font-mono font-bold text-blue-600">$832,000</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex items-start group cursor-pointer" onclick="highlightStep('step2')">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold mr-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">2</div>
+                        <div>
+                            <h4 class="font-semibold text-slate-800">Apply Friction Factor</h4>
+                            <p class="text-sm text-slate-500">Historical "Sold-to-List" ratio is 80.8%. We divide the target by this factor.</p>
+                            <div class="mt-1 text-sm font-mono text-slate-600 bg-slate-100 inline-block px-2 py-1 rounded">$832,000 ÷ 0.808</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex items-start group cursor-pointer" onclick="highlightStep('step3')">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold mr-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">3</div>
+                        <div>
+                            <h4 class="font-semibold text-slate-800">Mathematical MSRP</h4>
+                            <div class="mt-1 text-lg font-mono font-bold text-slate-400 decoration-slate-400 line-through decoration-2">$1,029,703</div>
+                            <p class="text-xs text-rose-500 mt-1">Risk: Exceeds psychological $1M search barrier.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="flex items-start group cursor-pointer" onclick="highlightStep('step4')">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold mr-4">4</div>
+                        <div>
+                            <h4 class="font-semibold text-emerald-800">Strategic Listing Price</h4>
+                            <p class="text-sm text-emerald-600">Adjusted to maximize lead generation while preserving negotiation room.</p>
+                            <div class="mt-1 text-xl font-mono font-bold text-emerald-700">$995,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Equity Simulator -->
+        <section class="bg-slate-900 text-white rounded-2xl p-6 md:p-10 shadow-2xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-2">Equity Outcome Simulator</h2>
+                    <p class="text-slate-400 mb-6">Analyze the client's net cash position based on the sale method. Toggle between scenarios to see the impact on equity.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-slate-800 p-1 rounded-lg inline-flex">
+                            <button onclick="setScenario('liquidation')" id="btn-liquidation" class="px-4 py-2 rounded-md text-sm font-medium transition-all bg-transparent text-slate-400 hover:text-white">Liquidation (ACV)</button>
+                            <button onclick="setScenario('retail')" id="btn-retail" class="px-4 py-2 rounded-md text-sm font-medium transition-all bg-blue-600 text-white shadow-lg">Retail Sale (Recommended)</button>
+                        </div>
+                        
+                        <div id="scenario-desc" class="text-sm text-slate-300 italic min-h-[40px]">
+                            <!-- Dynamic Text -->
+                        </div>
+
+                        <div class="mt-8 border-t border-slate-700 pt-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-slate-400">Total Debt Burden</span>
+                                <span class="font-mono text-lg">$600,000</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-slate-400">Gross Sale Price</span>
+                                <span id="gross-price" class="font-mono text-lg text-blue-400">$832,000</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-2 border-b border-slate-700 pb-2">
+                                <span class="text-slate-400">Est. Costs (Commissions/Fees)</span>
+                                <span id="est-fees" class="font-mono text-lg text-rose-400">-$83,200</span>
+                            </div>
+                             <div class="flex justify-between items-center mt-4">
+                                <span class="text-xl font-bold text-white">Net Client Equity</span>
+                                <span id="net-equity" class="font-mono text-3xl font-bold text-emerald-400">$148,800</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-center">
+                    <!-- Visualization & Content Choices: Donut Chart for Equity/Debt ratio. 
+                         Justification: Clearly shows the "slice" of the asset that belongs to the bank vs the client. -->
+                    <div class="chart-container" style="max-height: 350px;">
+                        <canvas id="equityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">© 2026 Asset Management & Brokerage Team. Confidential Analysis.</p>
+            <p class="text-slate-400 text-xs mt-2">Data based on Actuarial Valuation Model 26.1. Subject to market fluctuations.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Implementation -->
+    <script>
+        // Data Store
+        const appData = {
+            scenarios: {
+                liquidation: {
+                    title: "Liquidation (ACV)",
+                    price: 624000,
+                    feesPercent: 0.0, // Assumption: ACV is net or low fee, but let's assume direct wholesale has minimal friction or it's built in.
+                    // Actually, ACV is usually "Net to Seller" in wholesale contexts, but let's stick to simple math: 
+                    // To keep it comparable to the slide: Slide 7 says "At a $624,000 ACV... positive equity". 
+                    // Slide 7 also says Retail yields "Net Payout of $748,800". 
+                    // So Retail Fees = 832,000 - 748,800 = 83,200 (Exactly 10%).
+                    fees: 0, 
+                    desc: "Immediate cash liquidation. Zero marketing time. Maximizes speed but sacrifices equity."
+                },
+                retail: {
+                    title: "Retail Sale",
+                    price: 832000,
+                    fees: 83200, // 10% derived from slide data (832k - 748.8k)
+                    desc: "Full market exposure. Maximizes return. Yields ~$148k in liquid capital after commissions."
+                }
+            },
+            debt: 600000
+        };
+
+        // Initialize Charts
+        document.addEventListener('DOMContentLoaded', () => {
+            initValuationBridge();
+            initEngineChart();
+            initEquityChart();
+            setScenario('retail'); // Default view
+        });
+
+        // 1. Valuation Bridge Chart (Waterfall Logic)
+        function initValuationBridge() {
+            const ctx = document.getElementById('valuationBridgeChart').getContext('2d');
+            
+            // Data logic for waterfall
+            // Baseline: 0 to 1,000,000
+            // Temporal: 1,000,000 down to 850,000 (-150k)
+            // Engine Penalty: 850,000 down to 820,000 (-30k)
+            // Stigma: 820,000 down to 780,000 (-40k)
+            // Repower: 780,000 up to 832,000 (+52k)
+            // Final: 0 to 832,000
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Baseline (Median)', 'Temporal Correction', 'Engine Penalty', 'Stigma Adj.', 'Repower Credit', 'Final Retail Value'],
+                    datasets: [{
+                        label: 'Valuation Bridge',
+                        data: [
+                            [0, 1000000],
+                            [850000, 1000000],
+                            [820000, 850000],
+                            [780000, 820000],
+                            [780000, 832000],
+                            [0, 832000]
+                        ],
+                        backgroundColor: [
+                            '#cbd5e1', // Baseline (Grey)
+                            '#f43f5e', // Negative (Rose)
+                            '#f43f5e',
+                            '#f43f5e',
+                            '#10b981', // Positive (Emerald)
+                            '#3b82f6'  // Final (Blue)
+                        ],
+                        borderRadius: 4,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const raw = context.raw;
+                                    const diff = raw[1] - raw[0];
+                                    // Hacky way to detect the "direction" for the tooltip based on index
+                                    let val = 0;
+                                    if(context.dataIndex === 0) val = 1000000;
+                                    else if(context.dataIndex === 5) val = 832000;
+                                    else if(context.dataIndex === 4) val = 52000; // Repower
+                                    else if(context.dataIndex === 1) val = -150000;
+                                    else if(context.dataIndex === 2) val = -30000;
+                                    else if(context.dataIndex === 3) val = -40000;
+                                    
+                                    return `Impact: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val)}`;
+                                }
+                            }
+                        },
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 600000, // Zoom in to show detail
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value / 1000 + 'k';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 2. Engine Comparison Chart
+        function initEngineChart() {
+            const ctx = document.getElementById('engineChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Market Avg (Baseline)', 'Subject: Port Engine', 'Subject: Starboard'],
+                    datasets: [{
+                        label: 'Engine Hours',
+                        data: [1100, 2100, 1100],
+                        backgroundColor: [
+                            '#94a3b8', // Baseline
+                            '#f43f5e', // High Hours (Bad)
+                            '#10b981'  // Matches Baseline (Good)
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Horizontal bar for easy comparison
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            max: 2500
+                        },
+                        y: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 3. Equity Simulator Chart (Global Variable to update later)
+        let equityChartInstance = null;
+
+        function initEquityChart() {
+            const ctx = document.getElementById('equityChart').getContext('2d');
+            equityChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Debt (Bank)', 'Net Equity (Client)', 'Cost of Sale'],
+                    datasets: [{
+                        data: [600000, 148800, 83200], // Default Retail values
+                        backgroundColor: [
+                            '#334155', // Debt (Dark)
+                            '#10b981', // Equity (Green)
+                            '#f43f5e'  // Fees (Red)
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#ffffff' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Interaction Logic: Scenario Toggle
+        function setScenario(type) {
+            const data = appData.scenarios[type];
+            const debt = appData.debt;
+            const equity = data.price - debt - data.fees;
+            
+            // Update UI Buttons
+            document.getElementById('btn-liquidation').className = type === 'liquidation' 
+                ? "px-4 py-2 rounded-md text-sm font-medium transition-all bg-rose-600 text-white shadow-lg" 
+                : "px-4 py-2 rounded-md text-sm font-medium transition-all bg-transparent text-slate-400 hover:text-white";
+                
+            document.getElementById('btn-retail').className = type === 'retail'
+                ? "px-4 py-2 rounded-md text-sm font-medium transition-all bg-blue-600 text-white shadow-lg"
+                : "px-4 py-2 rounded-md text-sm font-medium transition-all bg-transparent text-slate-400 hover:text-white";
+
+            // Update Text Data
+            document.getElementById('scenario-desc').textContent = data.desc;
+            document.getElementById('gross-price').textContent = formatCurrency(data.price);
+            document.getElementById('est-fees').textContent = formatCurrency(-data.fees);
+            document.getElementById('net-equity').textContent = formatCurrency(equity);
+
+            // Update Chart
+            if (equityChartInstance) {
+                equityChartInstance.data.datasets[0].data = [debt, equity, data.fees];
+                equityChartInstance.update();
+            }
+        }
+
+        // Helper: Format Currency
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
+        }
+        
+        // Simple Interaction for Pricing Steps
+        function highlightStep(stepId) {
+            // Optional: Could add detailed modal or focus effect here.
+            // For now, the hover effect in CSS handles the interactivity cue.
+            console.log("User focused on: " + stepId);
+        }
+
+    </script>
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</body>
+</html>d
